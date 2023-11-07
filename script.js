@@ -4,6 +4,23 @@ const boardArray = [['', '', ''],
 
 let comMoves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
+const updateComMoves = (userin) => {
+    comMoves = comMoves.filter(element => element != userin);
+    console.log(comMoves)
+}
+
+const makeSelection = (x, y, position) => {
+    if (boardArray[x][y] === '') {
+        boardArray[x][y] = 'x';
+        updateComMoves(position);
+        return true;
+    }
+    else{
+        console.log('Position Taken. Provide another input.')
+        return false;
+    } 
+}
+
 const userTurn = () => {
     while(true) {
         let userInput = window.prompt('Please enter your position (x Turn):');
@@ -36,19 +53,6 @@ const userTurn = () => {
     }
 }
 
-const makeSelection = (x, y, position) => {
-    if (boardArray[x][y] === '') {
-        boardArray[x][y] = 'x';
-        updateComMoves(position);
-        console.log(boardArray);
-        return true;
-    }
-    else{
-        console.log('Position Taken. Provide another input.')
-        return false;
-    } 
-}
-
 const compTurn = () => {
     let row, column;
     const arrLastIndex = comMoves.length - 1;
@@ -68,11 +72,6 @@ const compTurn = () => {
 
     boardArray[row][column] = 'o';
     console.log(boardArray);
-}
-
-const updateComMoves = (userin) => {
-    comMoves = comMoves.filter(element => element != userin);
-    console.log(comMoves)
 }
 
 const drawCheck = () => {
@@ -126,12 +125,12 @@ const checkWinner = () => {
 
 while(true) {
     userTurn();
-    if(checkWinner() === true || drawCheck === true) {
-        break
+    if(checkWinner() === true || drawCheck() === true) {
+        break;
     }
     compTurn();
-    if(checkWinner() === true || drawCheck === true) {
-        break
+    if(checkWinner() === true || drawCheck() === true) {
+        break;
     }
 }
 
