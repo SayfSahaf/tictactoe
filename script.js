@@ -15,21 +15,21 @@ const userTurn = () => {
         else if (position > 5) {
             row = 2;
             column = userInput%3
-            if (makeSelection(row, column, position) > 0){
+            if (makeSelection(row, column, position) === true){
                 break;
             }
         }
         else if (position > 2) {
             row = 1;
             column = userInput%3;
-            if (makeSelection(row, column, position) > 0){
+            if (makeSelection(row, column, position) === true){
                 break;
             }
         }
         else{
             row = 0;
             column = userInput%3
-            if (makeSelection(row, column, position) > 0){
+            if (makeSelection(row, column, position) === true){
                 break;
             }
         }
@@ -41,11 +41,11 @@ const makeSelection = (x, y, position) => {
         boardArray[x][y] = 'x';
         updateComMoves(position);
         console.log(boardArray);
-        return 1;
+        return true;
     }
     else{
         console.log('Position Taken. Provide another input.')
-        return -1;
+        return false;
     } 
 }
 
@@ -121,6 +121,17 @@ const checkWinner = () => {
     else if (boardArray[0][2] === 'o' && boardArray[1][1] === 'o' && boardArray[2][0] === 'o') {
         console.log('o is the winner')
         return true;
+    }
+}
+
+while(true) {
+    userTurn();
+    if(checkWinner() === true || drawCheck === true) {
+        break
+    }
+    compTurn();
+    if(checkWinner() === true || drawCheck === true) {
+        break
     }
 }
 
